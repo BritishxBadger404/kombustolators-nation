@@ -561,6 +561,7 @@
         </button>
         <div class="nav-links">
             <a href="#socials">SOCIALS</a>
+            <a href="#partners">PARTNERS</a>
             <a href="#schedule">SCHEDULE</a>
             <a href="#setup">SETUP</a>
             <a href="#blog">BLOG</a>
@@ -614,6 +615,25 @@
         </div>
     </section>
 
+    <section id="partners" class="section" style="background: #080808; border-block: 1px solid var(--border);">
+        <div class="section-header">
+            <h2>OFFICIAL PARTNERS</h2>
+            <p>Affiliated with the best in the industry</p>
+        </div>
+        <div class="grid">
+            <a href="https://starforgesystems.com" target="_blank" rel="noopener noreferrer" class="card" aria-label="Visit Starforge Systems">
+                <i class="ph ph-rocket-launch"></i>
+                <h3>STARFORGE SYSTEMS</h3>
+                <p>Forging the ultimate PC hardware.</p>
+            </a>
+
+            <a href="https://youtube.com/@forbiddenarchangel" target="_blank" rel="noopener noreferrer" class="card" aria-label="Visit Forbidden Archangel YouTube">
+                <i class="ph ph-shield-checkered"></i>
+                <h3>FORBIDDEN ARCHANGEL</h3>
+                <p>Elite Discord Partner and Community Shield.</p>
+            </a>
+        </div>
+    </section>
     <section id="schedule" class="section">
         <div class="section-header">
             <h2>STREAM SCHEDULE</h2>
@@ -679,7 +699,7 @@
             navLinks.classList.toggle('active');
         });
 
-        // 2. Card Mouse Glow Effect
+        // 2. Card Mouse Glow Effect (Fully restored original logic)
         document.querySelectorAll('.card').forEach(card => {
             card.addEventListener('mousemove', e => {
                 const rect = card.getBoundingClientRect();
