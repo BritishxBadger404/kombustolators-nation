@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KOMBUSTOLATORS</title>
+    
+    <meta name="description" content="Join the KOMBUSTOLATOR NATION for chaotic gameplay and high-octane Twitch streams by British x Badger.">
+    <meta name="keywords" content="Kombustolator, British x Badger, Twitch streamer, gaming content, live streams">
+    <meta name="author" content="British x Badger">
+    
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="KOMBUSTOLATOR | British x Badger">
+    <meta property="og:description" content="Join the Kombustolator Nation for chaotic gaming streams.">
+    <meta property="og:image" content="/assets/og-banner.jpg">
+    <meta property="og:image:alt" content="KOMBUSTOLATOR Nation - British x Badger Gaming">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="KOMBUSTOLATOR | British x Badger">
+    <meta name="twitter:description" content="Join the Kombustolator Nation for chaotic gaming streams.">
+    
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔥</text></svg>">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <style>
+        :root {
+            --bg-dark: #050505;
+            --bg-card: #0a0a0a;
+            --primary: #ff4500;
+            --secondary: #00f2ff;
+            --text-white: #ffffff;
+            --text-grey: #888888;
+            --border: #222;
+            --font-display: 'Space Mono', monospace;
+            --font-body: 'DM Sans', sans-serif;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-white);
+            font-family: var(--font-body);
+            line-height: 1.6;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* Scanline Overlay */
+        body::after {
+            content: " ";
+            display: block;
+            position: fixed;
+            top: 0; left: 0; bottom: 0; right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%), 
+                        linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
+            z-index: 2;
+            background-size: 100% 2px, 3px 100%;
+            pointer-events: none;
+        }
+
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--bg-dark); }
+        ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--primary); }
+        ::selection { background: var(--primary); color: #000; }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 5%;
+            background: rgba(5, 5, 5, 0.8);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .brand {
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: 1.4rem;
+            letter-spacing: -1px;
+            color: var(--text-white);
+        }
+        .brand span { color: var(--primary); }
+
+        .nav-links { 
+            display: flex; 
+            gap: 30px; 
+        }
+        
+        .nav-links a { 
+            font-size: 0.9rem; 
+            font-weight: 500; 
+            opacity: 0.7; 
+            text-decoration: none;
+            color: var(--text-white);
+            transition: opacity 0.3s, color 0.3s;
+        }
+        
+        .nav-links a:hover { 
+            opacity: 1; 
+            color: var(--primary); 
+        }
+
+        .btn-live {
+            padding: 8px 16px;
+            border: 1px solid var(--primary);
+            color: var(--primary);
+            font-family: var(--font-display);
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.3s;
+            background: transparent;
+            position: relative;
+        }
+        
+        .btn-live:hover { 
+            background: var(--primary); 
+            color: #000; 
+        }
+
+        .btn-live.is-live {
+            animation: live-pulse 2s infinite;
+        }
+
+        .btn-live.is-live::before {
+            content: "● ";
+            animation: live-blink 1.5s infinite;
+        }
+
+        @keyframes live-pulse {
+            0%, 100% { box-shadow: 0 0 10px var(--primary); }
+            50% { box-shadow: 0 0 20px var(--primary), 0 0 30px var(--primary); }
+        }
+
+        @keyframes live-blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-white);
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .marquee-container {
+            background: var(--primary);
+            color: #000;
+            padding: 10px 0;
+            overflow: hidden;
+            border-bottom: 2px solid var(--primary);
+        }
+
+        .marquee-container:hover .marquee-content {
+            animation-play-state: paused;
+        }
+
+        .marquee-content {
+            white-space: nowrap;
+            display: inline-block;
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+        }
+
+        @media (prefers-reduced-motion: no-preference) {
+            .marquee-content { 
+                animation: scroll 30s linear infinite; 
+            }
+        }
+
+        @keyframes scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        .hero {
+            min-height: 60vh;
+            padding: 60px 5%;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(135deg, rgba(5, 5, 5, 0.95) 0%, rgba(10, 10, 10, 0.8) 100%);
+            position: relative;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-content h1 {
+            font-family: var(--font-display);
+            font-size: clamp(2.5rem, 8vw, 4.5rem);
+            line-height: 1.1;
+            text-transform: uppercase;
+        }
+
+        .glitch {
+            position: relative;
+            color: var(--primary);
+            display: inline-block;
+        }
+
+        .glitch::before,
+        .glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .glitch::before {
+            left: 2px;
+            text-shadow: -2px 0 var(--secondary);
+            animation: glitch-anim 9s infinite cubic-bezier(.4,.0,.2,1) alternate-reverse;
+        }
+
+        .glitch::after {
+            left: -2px;
+            text-shadow: -2px 0 var(--primary);
+            animation: glitch-anim 6s infinite cubic-bezier(.4,.0,.2,1) alternate-reverse;
+        }
+
+        @keyframes glitch-anim {
+            0%   { clip: rect(10px, 9999px, 40px, 0); }
+            25%  { clip: rect(20px, 9999px, 70px, 0); }
+            50%  { clip: rect(15px, 9999px, 55px, 0); }
+            75%  { clip: rect(30px, 9999px, 85px, 0); }
+            100% { clip: rect(12px, 9999px, 60px, 0); }
+        }
+
+        /* Chaos Mode Animations */
+        body.chaos-mode {
+            animation: chaos-shake 0.1s infinite;
+        }
+
+        body.chaos-mode::after {
+            background: linear-gradient(rgba(255, 69, 0, 0.1) 50%, rgba(0, 242, 255, 0.1) 50%), 
+                        linear-gradient(90deg, rgba(255, 0, 0, 0.1), rgba(0, 255, 0, 0.1), rgba(0, 0, 255, 0.1));
+            animation: chaos-pulse 1s infinite;
+        }
+
+        @keyframes chaos-shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-2px) rotate(0.5deg); }
+            75% { transform: translateX(2px) rotate(-0.5deg); }
+        }
+
+        .chaos-alert {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: var(--primary);
+            color: #000;
+            padding: 40px 60px;
+            font-family: var(--font-display);
+            font-size: 2rem;
+            font-weight: 700;
+            z-index: 9999;
+            border: 3px solid var(--secondary);
+            animation: chaos-appear 0.3s ease;
+            text-align: center;
+            pointer-events: none;
+        }
+
+        @keyframes chaos-appear {
+            0% { transform: translate(-50%, -50%) scale(0); }
+            100% { transform: translate(-50%, -50%) scale(1); }
+        }
+
+        .stats-bar {
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            padding: 25px 5%;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px 60px;
+            background: #080808;
+        }
+
+        .stat-item {
+            font-family: var(--font-display);
+            color: var(--text-grey);
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            white-space: nowrap;
+            transition: color 0.3s;
+        }
+
+        .stat-item a {
+            color: inherit;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .stat-item:hover,
+        .stat-item:hover a {
+            color: var(--primary);
+        }
+
+        .section {
+            padding: 80px 5%;
+            scroll-margin-top: 80px;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-header h2 {
+            font-family: var(--font-display);
+            font-size: clamp(2rem, 5vw, 3rem);
+            text-transform: uppercase;
+            margin-bottom: 15px;
+        }
+
+        .section-header p {
+            color: var(--text-grey);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            padding: 40px 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .card:hover { 
+            border-color: var(--primary); 
+            transform: translateY(-5px); 
+        }
+        
+        .card i { 
+            font-size: 2.5rem; 
+            color: var(--primary); 
+            margin-bottom: 20px; 
+            display: block; 
+        }
+        
+        .card h3 { 
+            font-family: var(--font-display); 
+            margin-bottom: 15px; 
+            font-size: 1.1rem; 
+        }
+        
+        .card p { 
+            color: var(--text-grey); 
+            font-size: 0.95rem; 
+        }
+
+        /* Mouse Glow Effect CSS */
+        .card::before {
+            content: "";
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(255, 69, 0, 0.15), transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s;
+            transform: translate(-50%, -50%);
+            left: var(--glow-x, 50%);
+            top: var(--glow-y, 50%);
+        }
+
+        .card:hover::before {
+            opacity: 1;
+        }
+
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 20px;
+        }
+
+        .blog-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            padding: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .blog-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        .blog-card h3 {
+            font-family: var(--font-display);
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+
+        .blog-card .date {
+            font-family: var(--font-display);
+            font-size: 0.75rem;
+            color: var(--text-grey);
+            margin-bottom: 15px;
+            opacity: 0.6;
+        }
+
+        .blog-card p {
+            color: var(--text-grey);
+            line-height: 1.8;
+        }
+
+        .content-box {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            padding: 40px;
+            margin-bottom: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .content-box h3 {
+            font-family: var(--font-display);
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+
+        .content-box p {
+            color: var(--text-grey);
+            line-height: 1.8;
+            font-size: 0.9rem;
+        }
+
+        .schedule-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .schedule-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            padding: 20px;
+            text-align: center;
+        }
+
+        .schedule-item .day {
+            font-family: var(--font-display);
+            color: var(--primary);
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+
+        .schedule-item .time {
+            color: var(--text-grey);
+            font-size: 0.85rem;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px;
+            border-top: 1px solid var(--border);
+            color: var(--text-grey);
+            font-family: var(--font-display);
+            font-size: 0.7rem;
+        }
+
+        footer a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links { 
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                flex-direction: column;
+                background: rgba(5, 5, 5, 0.98);
+                padding: 20px 5%;
+                gap: 20px;
+                border-bottom: 1px solid var(--border);
+            }
+            
+            .nav-links.active { 
+                display: flex; 
+            }
+            
+            .menu-toggle { 
+                display: block; 
+            }
+            
+            .navbar { 
+                padding: 15px 5%; 
+            }
+
+            .btn-live {
+                font-size: 0.75rem;
+                padding: 6px 12px;
+            }
+
+            .section {
+                padding: 60px 5%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="marquee-container" aria-hidden="true">
+        <div class="marquee-content">
+            // LIVE ON TWITCH // NEW CONTENT DROP // KOMBUSTOLATOR ONLINE // BRITISH X BADGER // LIVE ON TWITCH // NEW CONTENT DROP // KOMBUSTOLATOR ONLINE // BRITISH X BADGER // LIVE ON TWITCH // NEW CONTENT DROP // KOMBUSTOLATOR ONLINE // BRITISH X BADGER //
+        </div>
+    </div>
+
+    <nav class="navbar">
+        <div class="brand">KOMBUSTOLATOR<span>.</span></div>
+        <button class="menu-toggle" aria-label="Toggle navigation menu">
+            <i class="ph ph-list"></i>
+        </button>
+        <div class="nav-links">
+            <a href="#socials">SOCIALS</a>
+            <a href="#schedule">SCHEDULE</a>
+            <a href="#setup">SETUP</a>
+            <a href="#blog">BLOG</a>
+        </div>
+        <a href="https://www.twitch.tv/britishxbadger" class="btn-live is-live" target="_blank" rel="noopener noreferrer">
+            WATCH LIVE
+        </a>
+    </nav>
+
+    <header class="hero">
+        <div class="hero-content">
+            <h1>Welcome to the <br>
+                <span class="glitch" data-text="KOMBUSTOLATOR NATION">KOMBUSTOLATOR NATION</span>
+            </h1>
+        </div>
+    </header>
+
+    <div class="stats-bar">
+        <div class="stat-item"><a href="https://twitch.tv/britishxbadger" target="_blank" rel="noopener noreferrer">Twitch <span style="color:var(--primary)">///</span> Affiliate</a></div>
+        <div class="stat-item"><a href="https://youtube.com/@britishxbadger" target="_blank" rel="noopener noreferrer">YouTube <span style="color:var(--primary)">///</span> 200+</a></div>
+        <div class="stat-item"><a href="https://discord.gg/DexunACWgT" target="_blank" rel="noopener noreferrer">Discord <span style="color:var(--primary)">///</span> Community</a></div>
+        <div class="stat-item"><a href="https://tiktok.com/@britishxbadger" target="_blank" rel="noopener noreferrer">TikTok <span style="color:var(--primary)">///</span> Viral</a></div>
+    </div>
+
+    <section id="socials" class="section">
+        <div class="section-header">
+            <h2>CONNECT WITH US</h2>
+            <p>Join the community across all platforms</p>
+        </div>
+        <div class="grid">
+            <a href="https://discord.gg/DexunACWgT" target="_blank" rel="noopener noreferrer" class="card" aria-label="Join our Discord">
+                <i class="ph ph-discord-logo"></i>
+                <h3>DISCORD</h3>
+                <p>Community hub and live notifications.</p>
+            </a>
+            <a href="https://twitch.tv/britishxbadger" target="_blank" rel="noopener noreferrer" class="card" aria-label="Follow on Twitch">
+                <i class="ph ph-twitch-logo"></i>
+                <h3>TWITCH</h3>
+                <p>Main streaming hub for live chaos.</p>
+            </a>
+            <a href="https://youtube.com/@britishxbadger" target="_blank" rel="noopener noreferrer" class="card" aria-label="Subscribe on YouTube">
+                <i class="ph ph-youtube-logo"></i>
+                <h3>YOUTUBE</h3>
+                <p>VODs, highlights, and long-form content.</p>
+            </a>
+            <a href="https://tiktok.com/@britishxbadger" target="_blank" rel="noopener noreferrer" class="card" aria-label="Follow on TikTok">
+                <i class="ph ph-tiktok-logo"></i>
+                <h3>TIKTOK</h3>
+                <p>Viral clips and short-form chaos.</p>
+            </a>
+        </div>
+    </section>
+
+    <section id="schedule" class="section">
+        <div class="section-header">
+            <h2>STREAM SCHEDULE</h2>
+            <p>Catch Badger live throughout the week</p>
+        </div>
+        <div class="schedule-grid">
+            <div class="schedule-item">
+                <div class="day">MONDAY - SATURDAY</div>
+                <div class="time">8PM - 10PM GMT+2</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="setup" class="section">
+        <div class="section-header">
+            <h2>THE SETUP</h2>
+            <p>The hardware powering the nation</p>
+        </div>
+        <div class="grid">
+            <div class="content-box">
+                <h3>🖥️ PC SPECS</h3>
+                <p><strong>CPU:</strong> AMD Ryzen 7 5700 @ 4.6GHz<br>
+                <strong>GPU:</strong> AMD Radeon RX 9070 16GB<br>
+                <strong>RAM:</strong> 32GB DDR4 3200MHz<br>
+                <strong>Storage:</strong> 1TB NVMe + 1.5TB SSD/HDD</p>
+            </div>
+            <div class="content-box">
+                <h3>🖱️ PERIPHERALS</h3>
+                <p><strong>Monitor:</strong> ViewSonic 27" 180Hz<br>
+                <strong>Mouse:</strong> Corsair Katar Pro<br>
+                <strong>Keyboard:</strong> Redragon SHIVA K512<br>
+                <strong>Headphones:</strong> Ikon Wired</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="blog" class="section">
+        <div class="section-header">
+            <h2>LATEST UPDATES</h2>
+            <p>News and announcements</p>
+        </div>
+        <div class="blog-grid">
+            <div class="blog-card">
+                <div class="date">JANUARY 2026</div>
+                <h3>System Online</h3>
+                <p>The new landing page is live. Expect more integrated features and community tools coming throughout the year.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 BRITISH X BADGER. SYSTEM NORMAL. // <a href="#">PRIVACY</a> // <a href="#">TERMS</a> // 
+        <span class="chaos-trigger" style="cursor: pointer; opacity: 0.3;" title="???">🔥</span></p>
+    </footer>
+
+    <script>
+        // 1. Mobile Menu Toggle
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navLinks = document.querySelector('.nav-links');
+        
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        // 2. Card Mouse Glow Effect
+        document.querySelectorAll('.card').forEach(card => {
+            card.addEventListener('mousemove', e => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                card.style.setProperty('--glow-x', `${x}px`);
+                card.style.setProperty('--glow-y', `${y}px`);
+            });
+        });
+
+        // 3. Chaos Mode Trigger (Footer Easter Egg)
+        const trigger = document.querySelector('.chaos-trigger');
+        trigger.addEventListener('click', () => {
+            document.body.classList.toggle('chaos-mode');
+            
+            if(document.body.classList.contains('chaos-mode')) {
+                const alert = document.createElement('div');
+                alert.className = 'chaos-alert';
+                alert.innerText = 'CHAOS MODE ENABLED';
+                document.body.appendChild(alert);
+                
+                // Vibrate if on mobile
+                if (window.navigator.vibrate) {
+                    window.navigator.vibrate([100, 50, 100]);
+                }
+                
+                setTimeout(() => alert.remove(), 2000);
+            }
+        });
+
+        // Close mobile menu when a link is clicked
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+            });
+        });
+    </script>
+</body>
+</html>
